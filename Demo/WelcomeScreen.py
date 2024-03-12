@@ -1,0 +1,2 @@
+class WelcomeScreen:
+    pass
