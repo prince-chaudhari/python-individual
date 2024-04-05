@@ -8,8 +8,8 @@ from student import Student
 from teacher import Teacher
 from Class import Class
 import random
-
 import mysql.connector as mc
+from temp import storeDataForLastDiv
 
 class Project:
     branch = 2
@@ -37,7 +37,14 @@ class Project:
         else:
             self.load_data()
 
-# Project.main_logic()
+        app = QApplication(sys.argv)
+        widget = QtWidgets.QStackedWidget()
+        login = LoginScreen(widget, Project())
+        widget.addWidget(login)
+        widget.setFixedWidth(861)
+        widget.setFixedHeight(631)
+        widget.show()
+        sys.exit(app.exec_())    
 
     def storedata(self):
         student_data = open("D:\\Projects_Sem-3\\Python-I_Individual\\data\\Student Data.txt","r")
@@ -96,9 +103,6 @@ class Project:
         it = 1
 
         for i in self.selected_student:
-            os.mkdir(f"D:\\Projects_Sem-3\\Python-I_Individual\\students\\{i.name}")
-            f = open(f"D:\\Projects_Sem-3\\Python-I_Individual\\students\\{i.name}\\msg.txt", 'w')
-            f.close()
 
             if i.roll_no <= 90:
                 i.department = "CE"
@@ -115,7 +119,15 @@ class Project:
 
             min = 10000
             max = 99999
-            i.password = random.randrange(max - min + 1) + min        
+            i.password = random.randrange(max - min + 1) + min 
+                   
+            os.mkdir(f"D:\\Projects_Sem-3\\Python-I_Individual\\students\\{i.name}")
+            f1 = open(f"D:\\Projects_Sem-3\\Python-I_Individual\\students\\{i.name}\\msg.txt", 'w')
+            f2 = open(f"D:\\Projects_Sem-3\\Python-I_Individual\\students\\{i.name}\\personal.txt", 'w')
+
+            f2.write(f"UserID: {i.userId}\nPassword: {i.password}")
+            f1.close()
+            f2.close()
 
         temp_list = self.selected_student
         random.shuffle(temp_list)
@@ -138,12 +150,16 @@ class Project:
 
         for i in self.faculty:
             os.mkdir(f"D:\\Projects_Sem-3\\Python-I_Individual\\Faculties\\{i.name}")
-            f = open(f"D:\\Projects_Sem-3\\Python-I_Individual\\Faculties\\{i.name}\\mystudent.txt", 'w')
+            f1 = open(f"D:\\Projects_Sem-3\\Python-I_Individual\\Faculties\\{i.name}\\mystudent.txt", 'w')
+            f2 = open(f"D:\\Projects_Sem-3\\Python-I_Individual\\Faculties\\{i.name}\\personal.txt", 'a')
+
+            f2.write(f"UserID: {i.userId}\nPassword: {i.password}")
 
             for j in i.mystudents:
-                f.write(j.name + "\n")
+                f1.write(j.name + "\n")
 
-            f.close()
+            f1.close()
+            f2.close()
 
         count1 = 1
         count2 = 1
@@ -158,14 +174,13 @@ class Project:
                 self.classes.append(c)
                 count1 += 1
                 count2 = 1
-                print(c.id)
 
         for i in self.classes:
             temp1 = []
 
             os.mkdir(f"D:\\Projects_Sem-3\\Python-I_Individual\\class\\{i.id}")
             f = open(f"D:\\Projects_Sem-3\\Python-I_Individual\\class\\{i.id}\\students.txt", 'w')
-
+            
             for j in self.selected_student:
                 if j.class_alloted == i.id:
                     f.write(j.name + "\n")
@@ -173,13 +188,12 @@ class Project:
 
             i.students = temp1 
 
-
         app = QApplication(sys.argv)
         widget = QtWidgets.QStackedWidget()
         welcome = WelcomeScreen(self.classes, Project(), widget)
         widget.addWidget(welcome)
-        widget.setFixedWidth(950)
-        widget.setFixedHeight(700)
+        widget.setFixedWidth(776)
+        widget.setFixedHeight(617)
         widget.show()
         sys.exit(app.exec_())
 
@@ -228,11 +242,16 @@ class Project:
         mydb = self.connector()
         mycursor = mydb.cursor()
         query1 = "INSERT INTO students (UserId,password,Name,Enrollment_ID,Merit_Rank, Mail, Phone, Department, Roll_No, Class, City, Mentor) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        
+        exam_query = "INSERT INTO sem_3_exam (student_id) VALUES (%s)"
 
         for i in self.selected_student:
             value = (i.userId, i.password, i.name, i.enrollment_id, i.merit_rank, i.email, i.phone, i.department, i.roll_no, i.class_alloted, i.city, i.mentor)
-
             mycursor.execute(query1,value)
+
+            last_id = mycursor.lastrowid
+            mycursor.execute(exam_query, (last_id,))
+
             mydb.commit()
 
         query2 = "INSERT INTO faculties (UserId,password,Name,Primary_subject,Secondary_subject, Mail, Phone, myStudent) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
@@ -248,33 +267,31 @@ class Project:
             mydb.commit()
 
         query3 = "INSERT INTO hod (UserId,password,name,phone,mail) VALUES (%s, %s, %s, %s, %s)"
-        value = (hodObj.hod.userId,hodObj.hod.password,hodObj.hod.name,hodObj.hod.phone,hodObj.hod.mail)
+        value = (hodObj.userId,hodObj.password,hodObj.name,hodObj.phone,hodObj.mail)
 
         mycursor.execute(query3,value)
         mydb.commit()
 
         query4 = "INSERT INTO class (ID,python_faculty,fsd_faculty,de_faculty,ps_faculty,students) VALUES (%s, %s, %s, %s, %s, %s)"
 
+        with open(f"D:\\Projects_Sem-3\\Python-I_Individual\\class\\D6\\students.txt", 'r') as f:
+            d6_content = f.read()
+
         for i in self.classes:
-            
+            if i.id == "D6":
+                break
             with open(f"D:\\Projects_Sem-3\\Python-I_Individual\\class\\{i.id}\\students.txt", 'r') as f:
                 content = f.read()
-                print(f"-------{i.id}--------")
-                print(content)
-                print("-----------------")
                 value = (i.id, i.python_faculty, i.fsd_faculty, i.de_faculty, i.ps_faculty, content)
 
                 mycursor.execute(query4, value) 
                 mydb.commit()
-                f.close()
+
+        i = self.classes[len(self.classes) - 1]
         
-        # f = open(f"D:\\Projects_Sem-3\\Python-I_Individual\\class\\abc\\students.txt", 'r')
-        # content = f.readlines()
-        # print(content,"prince") 
-        # query5 = "INSERT INTO class (students) VALUES (%s)"
-        # value = (content,)
-        # mycursor.execute(query5, value)
-        # mydb.commit()
+        value = (i.id, i.python_faculty, i.fsd_faculty, i.de_faculty, i.ps_faculty, d6_content)
+        mycursor.execute(query4, value) 
+        mydb.commit()
 
     def load_data(self):
         mydb = self.connector()
@@ -285,29 +302,219 @@ class Project:
         myresult1 = mycursor.fetchall()
 
         for i in myresult1:
-            s = Student(i[2], i[3], i[4], i[5], i[6], i[10])
+            s = Student(i[3], i[4], i[5], i[6], i[7], i[11])
             
-            s.userId = i[0]
-            s.password = i[1]
-            s.department = i[7]
-            s.class_alloted = i[9]
-            s.roll_no = i[8]
-            s.mentor = i[11]
+            s.userId = i[1]
+            s.password = i[2]
+            s.department = i[8]
+            s.class_alloted = i[10]
+            s.roll_no = i[9]
+            s.mentor = i[12]
 
             self.selected_student.append(s) 
         
         mycursor.execute("SELECT * FROM faculties")
 
         myresult2 = mycursor.fetchall()
-
         for i in myresult2:
             t = Teacher(i[2], i[3], i[4], i[5], i[6])
-            self.selected_student.append(s)
-
+            
             content = i[7]
 
-            print(content)
+            content_list = content.split("\n")
 
+            for j in content_list:
+                for k in self.selected_student:
+                    if(j.lower() == k.name.lower()):
+                        t.mystudents.append(k)
+            
+            t.userId = i[0]
+            t.password = i[1]
+
+            self.faculty.append(i)
+
+        mycursor.execute("SELECT * FROM hod")
+
+        myresult3 = mycursor.fetchall()
+
+        for i in myresult3:
+
+            Hod.userId = i[0]
+            Hod.name = i[2]
+            Hod.password = i[1] 
+            Hod.mail = i[4]
+            Hod.phone = i[3]
+
+
+        mycursor.execute("SELECT * FROM class")
+
+        myresult4 = mycursor.fetchall()
+
+        for i in myresult4:
+            c = Class(i[0])
+
+            c.python_faculty = i[1]
+            c.fsd_faculty = i[2]
+            c.de_faculty = i[3]
+            c.ps_faculty = i[4]
+
+            content = i[5]
+
+            content_list = content.split("\n")
+    
+            temp = []
+
+            for j in content_list:
+                for k in self.selected_student:
+                    if(j.lower() == k.name.lower()):
+                        temp.append(k)
+
+            c.students = temp
+
+            self.classes.append(c)
+
+    def check_valid_hod(self, userId, password):
+
+        if not(Hod.userId):
+
+            mydb = self.connector()
+            mycursor = mydb.cursor()
+
+            mycursor.execute("SELECT * FROM hod")
+
+            result = mycursor.fetchall()
+
+            for i in result:    
+
+                Hod.userId = i[0]
+                Hod.name = i[2]
+                Hod.password = i[1] 
+
+        if userId == Hod.userId:
+            if password == str(Hod.password):
+                HodScreen.name = Hod.name
+                ChangePropertiesHod.name = Hod.name
+                ChangePropertiesHod.userId = Hod.userId
+                ChangePropertiesHod.password = Hod.password
+                return ""
+            return "password is not valid!!"    
+        return "userid is not valid!!"    
+
+    def check_valid_faculty(self, userId, password):
+        if type(self.faculty[0]) != tuple:
+            for i in self.faculty:
+                if userId == i.userId:
+                    if password == str(i.password):
+                        FacultyScreen.name = i.name
+                        FacultyStudents.t = i
+                        FacultyClasses.t = i
+                        return ""
+                    return "password is not valid!!"    
+            return "userid is not valid!!"
+        else:
+            for i in self.faculty:
+                if userId == i[0]:
+                    if password == str(i[1]):
+                        FacultyScreen.name = i[2]
+                        FacultyStudents.t = i
+                        FacultyClasses.t = i
+                        return ""
+                    return "password is not valid!!"    
+            return "userid is not valid!!"
+    
+    def check_valid_student(self, userId, password):
+
+        for i in self.selected_student:
+            if userId == i.userId:
+                if password == str(i.password):
+                    StudentScreen.name = i.name
+                    MsgToHod.name = i.name
+                    StudentProgress.name = i.name
+                    ChangePropertiesStudent.s = i
+                    ClassFaculty.s = i
+                    CheckMessage.s = i
+                    GiveFeedback.s = i
+                    return ""
+                return "password is not valid!!"    
+
+        return "userid is not valid!!"
+
+    def update_email_to_database_student(self, new_email, student_id):
+        mydb = self.connector()
+        mycursor = mydb.cursor()
+
+        query = "UPDATE students SET Mail = %s WHERE Enrollment_ID = %s"
+        val = (new_email, student_id)
+
+        mycursor.execute(query, val)
+
+        mydb.commit()
+    
+    def update_number_to_database_student(self, new_number, student_id):
+        mydb = self.connector()
+        mycursor = mydb.cursor()
+
+        query = "UPDATE students SET Phone = %s WHERE Enrollment_ID = %s"
+        val = (new_number, student_id)
+
+        mycursor.execute(query, val)
+
+        mydb.commit()
+    
+    def update_city_to_database_student(self, new_city, student_id):
+        mydb = self.connector()
+        mycursor = mydb.cursor()
+
+        query = "UPDATE students SET City = %s WHERE Enrollment_ID = %s"
+        val = (new_city, student_id)
+
+        mycursor.execute(query, val)
+
+        mydb.commit()
+    
+    def update_userid_to_database_student(self, new_userid, student_id):
+        mydb = self.connector()
+        mycursor = mydb.cursor()
+
+        query = "UPDATE students SET UserID = %s WHERE Enrollment_ID = %s"
+        val = (new_userid, student_id)
+
+        mycursor.execute(query, val)
+
+        mydb.commit()
+    
+    def update_password_to_database_student(self, new_password, student_id):
+        mydb = self.connector()
+        mycursor = mydb.cursor()
+
+        query = "UPDATE students SET password = %s WHERE Enrollment_ID = %s"
+        val = (int(new_password), student_id)
+
+        mycursor.execute(query, val)
+
+        mydb.commit()
+
+    def update_userid_to_database_hod(self, new_userid, hod_name):
+        mydb = self.connector()
+        mycursor = mydb.cursor()
+
+        query = "UPDATE hod SET UserID = %s WHERE name = %s"
+        val = (new_userid, hod_name)
+
+        mycursor.execute(query, val)
+
+        mydb.commit()
+
+    def update_password_to_database_hod(self, new_password, hod_name):
+        mydb = self.connector()
+        mycursor = mydb.cursor()
+
+        query = "UPDATE hod SET password = %s WHERE name = %s"
+        val = (int(new_password), hod_name)
+
+        mycursor.execute(query, val)
+
+        mydb.commit()
 
 p = Project()
-p.main_logic()   
+p.main_logic()      

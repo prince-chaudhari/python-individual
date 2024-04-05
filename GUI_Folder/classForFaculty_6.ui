@@ -138,7 +138,8 @@ font: 22pt &quot;Sans Serif Collection&quot;;
 {
    background-color:white;
 	color: rgba(0,30,50,150);
-}</string>
+}
+</string>
     </property>
     <property name="text">
      <string>Submit</string>
@@ -184,10 +185,10 @@ color:rgba(0,30,50,150);
 border-radius:17px;
 background-color:rgba(0,0,0,0);
 border:3px solid rgba(0,30,50,150);
-font: 18pt &quot;Sans Serif Collection&quot;;
 padding:18px;
 	padding-top:12px;
 
+font: 18pt &quot;Sans Serif Collection&quot;;
 }
 
 .QComboBox:focus{

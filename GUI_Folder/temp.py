@@ -1,59 +1,43 @@
-# importing libraries
-from PyQt5.QtWidgets import *
-from PyQt5 import QtCore, QtGui
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
-import sys
+# import mysql.connector as mc
+# mydb = mc.connect(
+#             host = "localhost",
+#             user = "root",
+#             password = "",
+#             database = "python_project"
+#         )
 
-class Window(QMainWindow):
+# mycursor = mydb.cursor()
 
-	def __init__(self):
-		super().__init__()
+# query1 = "select student_id,t1_python,t1_fsd,t1_de,t1_ps from sem_3_exam"
+# mycursor.execute(query1)
 
-		# setting title
-		self.setWindowTitle("Python ")
+# result = mycursor.fetchall()
 
-		# setting geometry
-		self.setGeometry(100, 100, 600, 400)
+# # for i in result:
+# #     for j in i:
+# #         print(j)
 
-		# calling method
-		self.UiComponents()
+# students_marks_sum_list = []
+            
+# for i in result:
+#     # temp = 
+#     students_marks_sum_list.append((i[0], sum([i[1],i[2],i[3],i[4]])))
 
-		# showing all the widgets
-		self.show()
+# # print(students_marks_sum_list)
 
-	# method for widgets
-	def UiComponents(self):
-
-		# creating spin box
-		self.spin = QSpinBox(self)
-
-		# setting geometry to spin box
-		self.spin.setGeometry(100, 100, 150, 40)
-
-		# creating a push button
-		button = QPushButton("Click", self)
-
-		# setting geometry to the button
-		button.setGeometry(200, 200, 100, 40)
-
-		# adding action to the push button
-		button.pressed.connect(self.do_something)
-
-	# action called by the button
-	def do_something(self):
-
-		# clearing the spin box
-		self.close()
-		
-
-
-
-# create pyqt5 app
-App = QApplication(sys.argv)
-
-# create the instance of our Window
-window = Window()
-
-# start the app
-sys.exit(App.exec())
+# students_marks_sum_list.sort(key=lambda k : k[1])
+# print(students_marks_sum_list)
+# # print ("{:<8} {:<15} {:<10} {:<10}".format('Rank',f'{students_marks_sum_list}','','Change'))
+# whichTest = "Test-1"
+# print("{:<20} {:<20} {:<5} {:<25} {:<10} {:<10}".format('Rank','Enrollment Number','Div','Student Name','Mentor Short Name',f'{whichTest}\n'))
+d = {1: ["Python", 33.2, 'UP'],
+2: ["Java", 23.54, 'DOWN'],
+3: ["Ruby", 17.22, 'UP'],
+10: ["Lua", 10.55, 'DOWN'],
+5: ["Groovy", 9.22, 'DOWN'],
+6: ["C", 1.55, 'UP']
+}
+print ("{:<8} {:<15} {:<10} {:<10}".format('Pos','Lang','Percent','Change'))
+for k, v in d.items():
+    lang, perc, change = v
+    print ("{:<8} {:<15} {:<10} {:<10}".format(k, lang, perc, change))

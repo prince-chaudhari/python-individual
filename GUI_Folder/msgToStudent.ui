@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>785</width>
-    <height>580</height>
+    <width>928</width>
+    <height>677</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,180 +16,42 @@
   <widget class="QWidget" name="bgwidget" native="true">
    <property name="geometry">
     <rect>
-     <x>-10</x>
+     <x>0</x>
      <y>0</y>
-     <width>811</width>
-     <height>581</height>
+     <width>931</width>
+     <height>681</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">QWidget#bgwidget{
 background-color:qlineargradient(x1: 1, y1: 1, x2:1, y2: 0.2, stop: 0 rgba(0, 52, 89,140),
 stop: 1 rgba(0, 168, 232,190))
-}
-</string>
+}</string>
    </property>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>229</x>
-      <y>20</y>
-      <width>421</width>
-      <height>111</height>
+      <x>330</x>
+      <y>130</y>
+      <width>281</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">font: 24pt &quot;Sans Serif Collection&quot;;
-color: rgba(0,23,31,255);</string>
-    </property>
-    <property name="text">
-     <string>Enter the details of Hod</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="hodName">
-    <property name="geometry">
-     <rect>
-      <x>210</x>
-      <y>160</y>
-      <width>451</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">.QLineEdit{
-border-radius:17px;
-background-color:rgba(0,0,0,0);
-border:3px solid rgba(0,30,50,150);
-font: 18pt &quot;Sans Serif Collection&quot;;
-padding:18px;
-padding-top:8px;
-
-}
-
-.QLineEdit:focus{
-	background-color:rgba(255,255,255,255);
-
-}</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>160</y>
-      <width>131</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 18pt &quot;Sans Serif Collection&quot;;
-color:rgba(0,30,50,255);</string>
-    </property>
-    <property name="text">
-     <string>Name:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>250</y>
-      <width>131</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 18pt &quot;Sans Serif Collection&quot;;
+color: rgba(0,23,31,255);
 </string>
     </property>
     <property name="text">
-     <string>Email:</string>
+     <string>Enter the notice</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="hodEmail">
+   <widget class="QPushButton" name="backBtn">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>250</y>
-      <width>451</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">.QLineEdit{
-border-radius:17px;
-background-color:rgba(0,0,0,0);
-border:3px solid rgba(0,30,50,150);
-font: 18pt &quot;Sans Serif Collection&quot;;
-padding:18px;
-padding-top:8px;
-
-}
-
-.QLineEdit:focus{
-	background-color:rgba(255,255,255,255);
-
-}</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>74</x>
-      <y>340</y>
-      <width>131</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 18pt &quot;Sans Serif Collection&quot;;
-</string>
-    </property>
-    <property name="text">
-     <string>Number:</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="hodNumber">
-    <property name="geometry">
-     <rect>
-      <x>210</x>
-      <y>340</y>
-      <width>451</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">.QLineEdit{
-border-radius:17px;
-background-color:rgba(0,0,0,0);
-border:3px solid rgba(0,30,50,150);
-font: 18pt &quot;Sans Serif Collection&quot;;
-padding:18px;
-padding-top:8px;;
-
-}
-
-.QLineEdit:focus{
-	background-color:rgba(255,255,255,255);
-
-}</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="hodBtn">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>480</y>
-      <width>391</width>
+      <x>330</x>
+      <y>605</y>
+      <width>261</width>
       <height>61</height>
      </rect>
     </property>
@@ -208,25 +70,154 @@ font: 22pt &quot;Sans Serif Collection&quot;;
 }</string>
     </property>
     <property name="text">
-     <string>Appoint Hod</string>
+     <string>Back</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="sendBtn">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>605</y>
+      <width>261</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+border-radius:8px;
+border:3px solid rgba(0,30,50,150);
+color:rgba(225,225,225,255);
+background-color:rgba(0,0,0,0);
+font: 22pt &quot;Sans Serif Collection&quot;;
+}
+.QPushButton:hover
+{
+   background-color:white;
+	color: rgba(0,30,50,150);
+}</string>
+    </property>
+    <property name="text">
+     <string>Send</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="done">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>290</y>
+      <width>391</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 20pt &quot;MS Shell Dlg 2&quot;;
+color:&quot;green&quot;</string>
+    </property>
+    <property name="text">
+     <string>Message send successfully</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="search">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>50</y>
+      <width>571</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">.QLineEdit{
+border-radius:17px;
+background-color:rgba(0,0,0,0);
+border:3px solid rgba(0,30,50,150);
+font: 18pt &quot;Sans Serif Collection&quot;;
+padding:18px;
+padding-top:8px;
+}
+
+.QLineEdit:focus{
+	background-color:rgba(255,255,255,255);
+
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string>Enter the name of student:</string>
+    </property>
+    <property name="clearButtonEnabled">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="searchBtn">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>50</y>
+      <width>231</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+border-radius:8px;
+border:3px solid rgba(0,30,50,150);
+color:rgba(225,225,225,255);
+background-color:rgba(0,0,0,0);
+font: 22pt &quot;Sans Serif Collection&quot;;
+}
+.QPushButton:hover
+{
+   background-color:white;
+	color: rgba(0,30,50,150);
+}</string>
+    </property>
+    <property name="text">
+     <string>Search</string>
     </property>
    </widget>
    <widget class="QLabel" name="error">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>420</y>
-      <width>441</width>
-      <height>41</height>
+      <x>330</x>
+      <y>290</y>
+      <width>301</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 14pt &quot;Sans Serif Collection&quot;;
-color:red;
-background-color: rgba(0,0,0,0);</string>
+     <string notr="true">font: 20pt &quot;MS Shell Dlg 2&quot;;
+color:&quot;red&quot;</string>
     </property>
     <property name="text">
-     <string/>
+     <string>Student not found !!</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="textPara">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>190</y>
+      <width>911</width>
+      <height>411</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPlainTextEdit{
+	border-radius:17px;
+	background-color:rgba(0,0,0,0);
+border:3px solid rgba(0,30,50,150);
+	font: 14pt &quot;Sans Serif Collection&quot;;
+	padding-left:20px;
+	padding-right:20px;
+}
+
+QPlainTextEdit:focus{
+	border:3px solid ;
+	border-color: rgb(21, 98, 166);
+}</string>
     </property>
    </widget>
   </widget>
