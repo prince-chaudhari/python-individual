@@ -2,11 +2,11 @@ import matplotlib.pyplot as plt
 import random
 from datetime import datetime
 from email_validator import validate_email, EmailNotValidError
-# import resource
+import resource
 import sys
 import os
 from PyQt5.uic import loadUi
-from PyQt5.QtGui import *
+from PyQt5.QtGui import *   
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import QDialog, QAction
 sys.path.append("D:\\Projects_Sem-3\\Python-I_Individual\\Demo")
@@ -252,8 +252,6 @@ class LoginScreen(QDialog):
         ChangePropertiesStudent.p = p
         ChangePropertiesHod.p = p
 
-        widget.setFixedWidth(861)
-        widget.setFixedHeight(631)
 
         if (not (os.path.exists("D:\\Projects_Sem-3\\Python-I_Individual\\notice.txt"))):
             self.send_instruction_for_change_personal_details()
@@ -261,8 +259,8 @@ class LoginScreen(QDialog):
 
         super(LoginScreen, self).__init__()
         loadUi("login.ui", self)
-        widget.setFixedWidth(961)
-        widget.setFixedHeight(432)
+        widget.setFixedWidth(861)
+        widget.setFixedHeight(631)
         self.hodBtn.clicked.connect(self.go_hod_interface)
         self.facultyBtn.clicked.connect(self.go_faculty_interface)
         self.studentBtn.clicked.connect(self.go_student_interface)
@@ -972,6 +970,7 @@ class GiveFeedback(QDialog):
 
         self.done.show()
         self.textPara.hide()
+        self.sendBtn.hide()
 
         f = open("D:\\Projects_Sem-3\\Python-I_Individual\\feedback.txt", 'a')
 
@@ -1088,10 +1087,10 @@ class MsgToHod(QDialog):
 
         now = datetime.now()
 
-        os.mkdir(f"D:\\Projects_Sem-3\\Python-I_Individual\\Hod\\Change Details")
+        os.mkdir(f"D:\\Projects_Sem-3\\Python-I_Individual\\Hod\\Students MSG")
         os.mkdir(
-            f"D:\\Projects_Sem-3\\Python-I_Individual\\Hod\\Change Details\\{self.name}")
-        f = open(f"D:\\Projects_Sem-3\\Python-I_Individual\\Hod\\Change Details\\{self.name}\\instruction.txt", 'a')
+            f"D:\\Projects_Sem-3\\Python-I_Individual\\Hod\\Students MSG\\{self.name}")
+        f = open(f"D:\\Projects_Sem-3\\Python-I_Individual\\Hod\\Students MSG\\{self.name}\\instruction.txt", 'a')
 
         f.write(now.strftime("%d/%m/%Y %H:%M:%S") + " :\n" + content + "\n\n")
 
@@ -1362,15 +1361,26 @@ class FacultyClasses(QDialog):
         self.classId.hide()
 
         temp_set = set()
-        for i in self.p.classes:
-            if self.t[2] == i.python_faculty:
-                temp_set.add(f"{i.id}   Python")
-            if self.t[2] == i.fsd_faculty:
-                temp_set.add(f"{i.id}   FSD")
-            if self.t[2] == i.de_faculty:
-                temp_set.add(f"{i.id}   DE")
-            if self.t[2] == i.ps_faculty:
-                temp_set.add(f"{i.id}   PS")
+        if type(self.p.faculty[0]) != tuple:
+            for i in self.p.classes:
+                if self.t.name == i.python_faculty:
+                    temp_set.add(f"{i.id}   Python")
+                if self.t.name == i.fsd_faculty:
+                    temp_set.add(f"{i.id}   FSD")
+                if self.t.name == i.de_faculty:
+                    temp_set.add(f"{i.id}   DE")
+                if self.t.name == i.ps_faculty:
+                    temp_set.add(f"{i.id}   PS")
+        else:
+            for i in self.p.classes:
+                if self.t[2] == i.python_faculty:
+                    temp_set.add(f"{i.id}   Python")
+                if self.t[2] == i.fsd_faculty:
+                    temp_set.add(f"{i.id}   FSD")
+                if self.t[2] == i.de_faculty:
+                    temp_set.add(f"{i.id}   DE")
+                if self.t[2] == i.ps_faculty:
+                    temp_set.add(f"{i.id}   PS")
 
         if len(temp_set) == 0:
             self.error.show()

@@ -9,7 +9,6 @@ from teacher import Teacher
 from Class import Class
 import random
 import mysql.connector as mc
-
 class Project:
     branch = 2
     capacity = num_class = 0
