@@ -1,15 +1,14 @@
-import numpy as np
 import matplotlib.pyplot as plt
 import random
 from datetime import datetime
 from email_validator import validate_email, EmailNotValidError
-import resource
+# import resource
 import sys
 import os
 from PyQt5.uic import loadUi
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QAction
+from PyQt5.QtWidgets import QDialog, QAction
 sys.path.append("D:\\Projects_Sem-3\\Python-I_Individual\\Demo")
 from hod import Hod
 from tabulate import tabulate

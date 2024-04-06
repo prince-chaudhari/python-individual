@@ -1,6 +1,6 @@
 import os,sys
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QDialog, QApplication, QWidget
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QApplication, QWidget
 sys.path.append("D:\\Projects_Sem-3\\Python-I_Individual\\GUI_Folder")
 sys.path.append("D:\\Projects_Sem-3\\Python-I_Individual\\Demo")
 from main import *
@@ -9,7 +9,6 @@ from teacher import Teacher
 from Class import Class
 import random
 import mysql.connector as mc
-from temp import storeDataForLastDiv
 
 class Project:
     branch = 2
